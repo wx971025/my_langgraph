@@ -1,6 +1,8 @@
 import os
 import logging
+import hashlib
 from langgraph.graph.state import CompiledStateGraph
+from typing import Literal
 
 class ColoredFormatter(logging.Formatter):
     COLORS = {
@@ -40,14 +42,50 @@ stream_handler.setFormatter(stream_formatter)
 logger.addHandler(stream_handler)
 
 
-def draw_graph_image(graph: CompiledStateGraph):
-    save_dir = "temp/graph_images"
+def calculate_md5(file_path: str, input_type: Literal["string", "file"] = "file") -> str:
+    def _calculate_file_md5(path):
+        hash_md5 = hashlib.md5()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hash_md5.update(chunk)
+        return hash_md5.hexdigest()
+
+    if input_type == "file":
+        if not os.path.isfile(file_path):
+            raise FileNotFoundError(f"{file_path} is not a valid file")
+        return _calculate_file_md5(file_path)
+    elif input_type == "string":
+        return hashlib.md5(file_path.encode()).hexdigest()
+    else:
+        raise NotImplementedError(f"MD5 calculation for {input_type} is not implemented")
+
+
+def draw_graph_image(graph: CompiledStateGraph, xray: bool = True):
+    save_dir = "temp"
     filename: str = "graph.png"
     os.makedirs(save_dir, exist_ok=True)
     logger.info(f"Saving graph image to {save_dir}")
-    image_data = graph.get_graph().draw_mermaid_png()
+    image_data = graph.get_graph(xray=xray).draw_mermaid_png()
     save_path = os.path.join(save_dir, filename)
     with open(save_path, "wb") as f:
         f.write(image_data)
     logger.info(f"Graph image saved to {save_path}")
     return save_path
+
+
+def detect_language(s: str) -> Literal["zh", "en"]:
+    s = s[:100]
+
+    counts = {
+        "zh": 0,   # Chinese
+    }
+
+    for ch in s:
+        code = ord(ch)
+        if 0x4E00 <= code <= 0x9FFF or 0x3400 <= code <= 0x4DBF or 0x20000 <= code <= 0x2A6DF:
+            counts["zh"] += 1
+
+    lang, cnt = max(counts.items(), key=lambda item: item[1])
+    if cnt > 0 and cnt >= 0.10 * len(s):
+        return lang
+    return "en"

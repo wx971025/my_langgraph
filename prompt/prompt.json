@@ -1,0 +1,76 @@
+{
+  "task": "generate_phone_showcase_video",
+  "style": "photorealistic",
+  "duration": "10_seconds",
+  "target_audience": "young_chinese_consumers",
+  "main_subject": {
+    "phone": {
+      "reference": "user_uploaded_multi_angle_views",
+      "consistency": "strict_adherence_to_reference",
+      "key_requirements": [
+        "maintain_exact_appearance_from_reference",
+        "preserve_original_logo",
+        "no_design_modifications",
+        "consistent_across_all_frames"
+      ]
+    },
+    "presenter": {
+      "description": "beautiful_young_chinese_woman",
+      "age_range": "20-28",
+      "appearance": "trendy_energetic_professional",
+      "clothing": "modern_casual_stylish"
+    }
+  },
+  "continuous_action_sequence": {
+    "0-2s": {
+      "camera": "smooth_dolly_in_while_rotating",
+      "presenter_action": "walking_forward_revealing_phone_from_behind_back",
+      "phone_movement": "emerging_into_frame_with_spin",
+      "phone_angle": "transitioning_from_side_to_front"
+    },
+    "2-4s": {
+      "camera": "circular_tracking_around_presenter",
+      "presenter_action": "rotating_phone_in_hand_while_turning_body",
+      "phone_movement": "continuous_360_degree_showcase",
+      "phone_angle": "showing_all_sides_smoothly"
+    },
+    "4-6s": {
+      "camera": "dynamic_push_pull_combination",
+      "presenter_action": "lifting_phone_up_then_bringing_close_to_camera",
+      "phone_movement": "elegant_flip_showing_back_to_front",
+      "phone_angle": "emphasizing_camera_module_then_screen"
+    },
+    "6-8s": {
+      "camera": "sweeping_crane_movement_downward",
+      "presenter_action": "dancing_gesture_while_holding_phone",
+      "phone_movement": "rhythmic_swaying_with_presenter",
+      "phone_angle": "alternating_profile_views"
+    },
+    "8-10s": {
+      "camera": "accelerating_spiral_in",
+      "presenter_action": "spinning_with_phone_extended_then_pulling_close",
+      "phone_movement": "dramatic_arc_to_final_hero_position",
+      "phone_angle": "ending_on_perfect_three_quarter_view"
+    }
+  },
+  "motion_requirements": {
+    "continuity": "non_stop_fluid_movement",
+    "energy_level": "high_dynamic_engaging",
+    "transitions": "seamless_overlapping_actions",
+    "rhythm": "upbeat_synchronized_flow"
+  },
+  "visual_dynamics": {
+    "lighting": "moving_highlights_following_phone",
+    "background": "subtle_motion_blur_from_movement",
+    "focus": "sharp_on_phone_throughout",
+    "atmosphere": "energetic_youthful_vibrant"
+  },
+  "critical_constraints": [
+    "constant_motion_no_static_moments",
+    "maintain_phone_visual_consistency_100_percent",
+    "every_frame_contains_active_movement",
+    "smooth_natural_motion_throughout",
+    "photorealistic_quality_mandatory",
+    "no_jump_cuts_or_discontinuities"
+  ]
+}

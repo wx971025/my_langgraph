@@ -1,13 +1,36 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+# Python 字节码
+pycache/
+*.py[cod]
+*$py.class
 
-# Virtual environments
-.venv
+# 虚拟环境
+.venv/
+venv/
+ENV/
+env/
 .env
 
+# log
+logs/
+
+# npm
+node_modules/
+
+# uv 相关
+.python-version
+/cpython-*/
+# uv 锁文件
+# uv.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# other
 temp/
+test*
+assets
+db
+.langgraph_api

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@amap/amap-maps-mcp-server": "^0.0.8"
+  }
+}

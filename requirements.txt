@@ -1,5 +1,6 @@
 aiosqlite==0.22.0
 annotated-types==0.7.0
+beautifulsoup4==4.12.3
 anyio==4.12.0
 asttokens==3.0.1
 certifi==2025.11.12

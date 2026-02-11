@@ -1,0 +1,15 @@
+{
+    "math": {
+        "transport": "stdio",
+        "command": "python",
+        "args": ["/home/wangxu/my_langgraph/tools/mcp/math.py"]
+    },
+    "amap-maps": {
+        "transport": "stdio",
+        "command": "npx",
+        "args": ["@amap/amap-maps-mcp-server"],
+        "env": {
+            "AMAP_MAPS_API_KEY": "ffff57278dfc846af81ed01469b71dc3"
+        }
+    }
+}

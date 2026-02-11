@@ -28,9 +28,26 @@ from langchain_core.callbacks import (
 from langchain_core.outputs import ChatGeneration, ChatResult, ChatGenerationChunk
 from langchain_core.runnables import RunnableConfig
 from langchain_openai import AzureChatOpenAI as BaseAzureChatOpenAI
+from langchain_deepseek import ChatDeepSeek as BaseChatDeepSeek
+
+from dotenv import load_dotenv; load_dotenv(".env")
 
 
-class AzureModelName(StrEnum):
+class ChatDeepSeekModelName(StrEnum):
+    deepseek_chat = "deepseek-chat"
+    deepseek_reasoner = "deepseek-reasoner"
+
+
+class ChatDeepSeek(BaseChatDeepSeek):
+    def __init__(self, model: ChatDeepSeekModelName, *args, **kwargs):
+        super().__init__(
+            *args,
+            model=model,
+            api_key=os.environ.get("DEEPSEEK_API_KEY"),
+            **kwargs
+        )
+
+class AzureChatOpenAIModelName(StrEnum):
     o1 = "o1"
     o1_mini = "o1-mini"
     o3_mini = "o3-mini"
@@ -43,7 +60,7 @@ class AzureModelName(StrEnum):
 
 
 class AzureChatOpenAI(BaseAzureChatOpenAI):
-    def __init__(self, model: AzureModelName, **kwargs):
+    def __init__(self, model: AzureChatOpenAIModelName, **kwargs):
         api_key = os.environ.get("AZURE_OPENAI_API_KEY")
         if api_key is None:
             raise ValueError("AZURE_OPENAI_API_KEY is not set")
@@ -55,9 +72,10 @@ class AzureChatOpenAI(BaseAzureChatOpenAI):
             **kwargs
         )
 
-class GeminiModelName(StrEnum):
+class GeminiImageModelName(StrEnum):
     gemini_3_pro_image_preview = "google/gemini-3-pro-image-preview"
     gemini_2_5_flash_image = "google/gemini-2-5-flash-image"
+    gemini_3_pro_preview = "google/gemini-3-pro-preview"
 
 
 class OpenrouterChatOpenAI(BaseChatModel):
@@ -65,7 +83,7 @@ class OpenrouterChatOpenAI(BaseChatModel):
     _async_client: AsyncOpenAI = PrivateAttr()
     _model: str = PrivateAttr()
 
-    def __init__(self, model: GeminiModelName, **kwargs):
+    def __init__(self, model: GeminiImageModelName, **kwargs):
         super().__init__(**kwargs)
         api_key = os.environ.get("OPENROUTER_API_KEY")
         if api_key is None:
@@ -133,11 +151,9 @@ class OpenrouterChatOpenAI(BaseChatModel):
 
         if aspect_ratio is not None and \
             aspect_ratio not in ["1:1", "16:9", "9:16", "4:3", "3:4", "3:2", "2:3", "21:9", "5:4", "4:5"]:
-            # 设置了, 但是没在允许的范围内，则使用默认值
             aspect_ratio = "1:1"
         
         if resolution is not None and resolution not in ["1k", "2k"]:
-            # 设置了, 但是没在允许的范围内，则使用默认值
             resolution = "1k"
         
         image_config = {}
